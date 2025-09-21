@@ -133,7 +133,16 @@ function getResult(accuracyValue = 8) {
         res = res.replaceAll('Infinity', 'Бесконечность')
       } else if (lang === 'en' && res.includes('Бесконечность')) {
         res = res.replaceAll('Бесконечность', 'Infinity')
+      } else if (res === 'NaN') {
+          errorContainer.setAttribute('data-error-name', 'bigNumber');
+          setLanguage(localStorage.getItem('lang') || 'ru');
+          return;
+      } else if (!res) {
+          errorContainer.setAttribute('data-error-name', 'else');
+          setLanguage(localStorage.getItem('lang') || 'ru');
+          return;
       }
+
       document.querySelector('.results').insertAdjacentHTML('beforeend', `<div class='result'>${i + 1}) <span data-i18n-res='result'>${res}</span></div>`);
     });
     outputContainer.style.width = wrapperContainer.scrollWidth + 'px';
