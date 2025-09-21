@@ -87,6 +87,15 @@ function scrollInputToEnd(element) {
   element.scrollLeft = element.scrollWidth;
 }
 
+function formatAccuracy() {
+  const originalValue = accuracyContainer.value;
+  const cleanedValue = originalValue
+    .replace(/\D/g, '') // Удаляем все не-цифры
+    .replace(/^0/, '');  // Убираем ноль в начале
+  if (originalValue !== cleanedValue) {
+    accuracyContainer.value = cleanedValue;
+  }
+}
 
 function formatDegree() {
   const originalValue = degreeContainer.value;
@@ -142,14 +151,19 @@ function App() {
   formatDegree();
 
   outputContainer.addEventListener('input', () => formatInput(outputContainer));
+  
   degreeContainer.addEventListener('input', () => {
     formatDegree();
     saveState();
   });
+  
+  accuracyContainer.addEventListener('input', formatAccuracy);
 
   const interactiveButtons = document.querySelectorAll('.calculator__button:not(.calculator_button-accuracy)');
   interactiveButtons.forEach(button => {
-    button.addEventListener('mousedown', (e) => e.preventDefault());
+    const preventDefaultAction = (e) => e.preventDefault();
+    button.addEventListener('mousedown', preventDefaultAction);
+    button.addEventListener('touchstart', preventDefaultAction, { passive: true });
   });
 
   const numberButtons = document.querySelectorAll('.calculator_button-number');
@@ -190,7 +204,7 @@ function App() {
   navButtons.forEach(button => {
     button.addEventListener('click', () => {
       const el = getCurrentElement().element;
-      el.focus();
+      // el.focus();
       const pos = el.selectionStart;
       const dir = button.dataset.nav === 'left' ? -1 : 1;
       const newPos = Math.max(0, pos + dir);
