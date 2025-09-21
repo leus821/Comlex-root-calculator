@@ -166,6 +166,14 @@ h1 {
   width: 100%;
 }
 
+.calculator__button-result {
+  grid-column: 3 span;
+}
+
+input[inputmode="none"] {
+  caret-color: auto; /* или 'black', или currentColor */
+}
+
 .output-form {
   width: 100%;
 }

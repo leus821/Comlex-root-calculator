@@ -204,7 +204,7 @@ function App() {
   navButtons.forEach(button => {
     button.addEventListener('click', () => {
       const el = getCurrentElement().element;
-      // el.focus();
+      el.focus();
       const pos = el.selectionStart;
       const dir = button.dataset.nav === 'left' ? -1 : 1;
       const newPos = Math.max(0, pos + dir);
