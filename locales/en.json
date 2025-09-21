@@ -7,5 +7,8 @@
   "sign": "There cannot be such a sign at the end of the expression",
   "unexpected": "Your expression is incorrect",
   "zag": "",
-  "result": "Infinity"
+  "result": "Infinity",
+  "bigNumber": "You're using too big numbers",
+  "else": "An unexpected error has occurred",
+  "documentation": "Documentation:"
 }
