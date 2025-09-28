@@ -2,23 +2,6 @@ export const translations = {}
 
 const language = navigator.language.split('-')[0]
 
-document.querySelectorAll(".switch-lang").forEach(el => {
-  if (el.dataset.lang === localStorage.getItem('lang')) {
-    el.classList.add('active-lang')
-  }
-  
-  el.addEventListener('click', async () => {
-  await loadTranslations(el.dataset.lang)
-  setLanguage(el.dataset.lang)
-  document.querySelectorAll('.switch-lang').forEach(el => {
-    el.classList.remove('active-lang')
-  })
-  if (localStorage.getItem('lang') === el.dataset.lang) {
-    el.classList.add('active-lang')
-    localStorage.setItem('lang', el.dataset.lang)
-  }
-})
-})
 
 export async function getTranslations(name) {
   const lang = document.documentElement.lang
@@ -91,5 +74,23 @@ async function initLocation() {
   await loadTranslations(currentLang)
   setLanguage(currentLang)
   localStorage.setItem('lang', currentLang);
+
+  document.querySelectorAll(".switch-lang").forEach(el => {
+  if (el.dataset.lang === localStorage.getItem('lang')) {
+    el.classList.add('active-lang')
+  }
+  
+  el.addEventListener('click', async () => {
+  await loadTranslations(el.dataset.lang)
+  setLanguage(el.dataset.lang)
+  document.querySelectorAll('.switch-lang').forEach(el => {
+    el.classList.remove('active-lang')
+  })
+  if (localStorage.getItem('lang') === el.dataset.lang) {
+    el.classList.add('active-lang')
+    localStorage.setItem('lang', el.dataset.lang)
+  }
+})
+})
 }
 document.addEventListener('DOMContentLoaded', initLocation());

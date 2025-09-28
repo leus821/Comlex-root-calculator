@@ -77,8 +77,12 @@ function formatInput(element) {
     const diff = originalValue.length - cleanedValue.length;
     const newCursorPos = Math.max(0, cursorPosition - diff);
     element.setSelectionRange(newCursorPos, newCursorPos);
-    
   }
+
+  if (!originalValue) {
+    element.value = '0'
+  }
+  
   scrollInputToEnd(element)
   saveState();
 }
@@ -154,7 +158,7 @@ function getResult(accuracyValue = 8) {
 }
 
 function App() {
-  outputContainer.value = JSON.parse(localStorage.getItem('output')) || '';
+  outputContainer.value = JSON.parse(localStorage.getItem('output')) || '0';
   formatInput(outputContainer);
   degreeContainer.value = JSON.parse(localStorage.getItem('degree')) || '2';
   formatDegree();
@@ -198,7 +202,7 @@ function App() {
 
   const clearButton = document.querySelector('.calculator_button-clear');
   clearButton.addEventListener('click', () => {
-    outputContainer.value = '';
+    outputContainer.value = '0';
     degreeContainer.value = '2';
     accuracyContainer.value = '';
     clearResults();
